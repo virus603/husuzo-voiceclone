@@ -3,14 +3,12 @@ name: Android CI - build APK
 on:
   push:
     branches: [ main, master ]
-  pull_request:
-    branches: [ main, master ]
   workflow_dispatch:
 
 jobs:
   build:
-    name: Build Release APK
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -21,15 +19,13 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Grant execute permission for gradlew
-        run: chmod +x ./gradlew || true
+      - name: Set up Gradle
+        uses: gradle/gradle-build-action@v2
 
       - name: Build Release APK
-        run: ./gradlew clean assembleRelease --no-daemon
-        env:
-          JAVA_TOOL_OPTIONS: -Xmx2g
+        run: gradle assembleRelease
 
-      - name: Upload APK artifact
+      - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: app-release.apk
