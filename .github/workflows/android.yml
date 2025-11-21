@@ -30,8 +30,10 @@ jobs:
         # --no-daemon və --no-build-cache əlavə olunur ki, build sabit olsun
         run: gradle assembleRelease --no-daemon --no-build-cache
 
-      - name: Upload APK
+      - name: Upload APK(s)
         uses: actions/upload-artifact@v4
         with:
-          name: app-release.apk
-          path: app/build/outputs/apk/release/app-release.apk
+          name: app-apks
+          path: app/build/outputs/**/*.apk
+          if-no-files-found: warn
+
