@@ -8,11 +8,12 @@ import retrofit2.converter.gson.GsonConverterFactory
 object ApiClient {
 
     fun create(baseUrl: String): ApiService {
-        val log = HttpLoggingInterceptor()
-        log.level = HttpLoggingInterceptor.Level.BODY
+        // Logging interceptor (need dependency: okhttp logging-interceptor)
+        val logging = HttpLoggingInterceptor()
+        logging.level = HttpLoggingInterceptor.Level.BASIC
 
         val client = OkHttpClient.Builder()
-            .addInterceptor(log)
+            .addInterceptor(logging) // pass the interceptor instance
             .build()
 
         return Retrofit.Builder()
