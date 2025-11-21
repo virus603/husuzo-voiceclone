@@ -23,10 +23,12 @@ jobs:
         uses: gradle/gradle-build-action@v2
         with:
           gradle-version: 8.4
-          cache-enabled: false
+          # doğru input adıdır: cache-disabled (true - cache istifadə olunmasın)
+          cache-disabled: true
 
       - name: Build APK
-        run: gradle assembleRelease --no-daemon --no-build-cache --stacktrace --info
+        # --no-daemon və --no-build-cache əlavə olunur ki, build sabit olsun
+        run: gradle assembleRelease --no-daemon --no-build-cache
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
