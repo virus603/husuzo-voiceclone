@@ -4,6 +4,8 @@ apply plugin: 'kotlin-android'
 android {
     compileSdk 34
 
+    namespace "com.husuzo.voiceclone"
+
     defaultConfig {
         applicationId "com.husuzo.voiceclone"
         minSdk 24
